@@ -195,7 +195,20 @@ cadence:40 speed:20 gear:3
 
 面向对象编程允许类从其他类继承常用的状态和行为。 在这个例子中，Bicycle现在成为MountainBike，RoadBike和TandemBike的超类。 在Java编程语言中，每个类都允许有一个直接超类，每个超类都有可能有无数个子类：
 
+![](https://raw.githubusercontent.com/shawn520/javaTutorials/master/jpg/concepts-bikeHierarchy.gif)
 
+创建子类的语法很简单。 在类声明的开始处，使用extends关键字，后跟要继承的类的名称：
+
+```java
+class MountainBike extends Bicycle {
+
+    // new fields and methods defining 
+    // a mountain bike would go here
+
+}
+```
+
+这给了MountainBike所有与Bicycle相同的领域和方法，但允许其代码专注于使其独特的功能。 这使得您的子类的代码易于阅读。 但是，必须注意正确记录每个超类定义的状态和行为，因为该代码不会出现在每个子类的源文件中。
 
 ### 什么是接口？
 
