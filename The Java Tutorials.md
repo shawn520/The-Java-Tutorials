@@ -494,9 +494,244 @@ int x7 = 0x52_;
 
 数组是一个容器对象，它拥有固定数量的单个类型的值。 创建数组时创建数组的长度。 创建后，其长度是固定的。 您已经在“Hello World！” 应用的主要方法中看到了一个数组的例子。 本节更详细地讨论数组。
 
-![https://docs.oracle.com/javase/tutorial/figures/java/objects-tenElementArray.gif]()
+![https://raw.githubusercontent.com/shawn520/javaTutorials/master/img/objects-tenElementArray.gif](C:\Users\liush\Documents\workspace\javaTutorials\img\objects-tenElementArray.gif)
 
 数组中的每个项目都称为元素，每个元素都通过其数字索引进行访问。 如上图所示，编号从0开始。例如，第9个元素将在索引8处访问。
+
+以下程序ArrayDemo创建一个整数数组，将一些值放入数组中，并将每个值打印到标准输出。
+
+```java
+class ArrayDemo {
+    public static void main(String[] args) {
+        // declares an array of integers
+        int[] anArray;
+
+        // allocates memory for 10 integers
+        anArray = new int[10];
+           
+        // initialize first element
+        anArray[0] = 100;
+        // initialize second element
+        anArray[1] = 200;
+        // and so forth
+        anArray[2] = 300;
+        anArray[3] = 400;
+        anArray[4] = 500;
+        anArray[5] = 600;
+        anArray[6] = 700;
+        anArray[7] = 800;
+        anArray[8] = 900;
+        anArray[9] = 1000;
+
+        System.out.println("Element at index 0: "
+                           + anArray[0]);
+        System.out.println("Element at index 1: "
+                           + anArray[1]);
+        System.out.println("Element at index 2: "
+                           + anArray[2]);
+        System.out.println("Element at index 3: "
+                           + anArray[3]);
+        System.out.println("Element at index 4: "
+                           + anArray[4]);
+        System.out.println("Element at index 5: "
+                           + anArray[5]);
+        System.out.println("Element at index 6: "
+                           + anArray[6]);
+        System.out.println("Element at index 7: "
+                           + anArray[7]);
+        System.out.println("Element at index 8: "
+                           + anArray[8]);
+        System.out.println("Element at index 9: "
+                           + anArray[9]);
+    }
+} 
+```
+
+这个程序的输出是：
+
+```java
+Element at index 0: 100
+Element at index 1: 200
+Element at index 2: 300
+Element at index 3: 400
+Element at index 4: 500
+Element at index 5: 600
+Element at index 6: 700
+Element at index 7: 800
+Element at index 8: 900
+Element at index 9: 1000
+```
+
+在现实世界的编程环境中，您可能会使用支持的循环构造之一来遍历数组的每个元素，而不是像前面的示例中那样单独编写每行。 但是，该示例清楚地说明了数组语法。 您将在“控制流”部分中了解各种循环结构（for, while, and do-while）。
+
+##### 声明一个变量来引用一个数组
+
+上述程序使用以下代码行来声明一个数组（名为anArray）：
+
+```java
+// declares an array of integers
+int[] anArray;
+```
+
+像其他类型变量的声明一样，数组声明包含两个组件：数组的类型和数组的名称。 数组的类型写成类型[]，其中type是所包含元素的数据类型; 括号是特殊的符号，表示这个变量包含一个数组。 数组的大小不是其类型的一部分（这就是括号为空的原因）。 数组的名称可以是任何你想要的，只要它遵循前面在命名部分讨论过的规则和约定。 与其他类型的变量一样，该声明实际上并不创建数组; 它只是告诉编译器该变量将保存指定类型的数组。
+
+同样，你可以声明其他类型的数组：
+
+```java
+byte[] anArrayOfBytes;
+short[] anArrayOfShorts;
+long[] anArrayOfLongs;
+float[] anArrayOfFloats;
+double[] anArrayOfDoubles;
+boolean[] anArrayOfBooleans;
+char[] anArrayOfChars;
+String[] anArrayOfStrings;
+```
+
+您也可以在数组名称后面加上括号：
+
+```java
+// this form is discouraged
+float anArrayOfFloats[];
+```
+
+然而，通常不鼓励这种形式; 括号标识数组类型，并应与类型标识一起出现。
+
+##### 创建，初始化和访问数组
+
+创建数组的一种方法是使用新操作符。 ArrayDemo程序中的下一个语句为10个整数元素分配一个具有足够内存的数组，并将数组赋值给anArray变量。
+
+```java
+// create an array of integers
+anArray = new int[10];
+```
+
+如果缺少这个语句，那么编译器打印出如下所示的错误，编译失败：
+
+```java
+ArrayDemo.java:4: Variable anArray may not have been initialized.
+```
+
+接下来的几行为数组的每个元素赋值
+
+```java
+anArray[0] = 100; // initialize first element
+anArray[1] = 200; // initialize second element
+anArray[2] = 300; // and so forth
+```
+
+每个数组元素都通过其数字索引进行访问：
+
+```java
+System.out.println("Element 1 at index 0: " + anArray[0]);
+System.out.println("Element 2 at index 1: " + anArray[1]);
+System.out.println("Element 3 at index 2: " + anArray[2]);
+```
+
+或者，您可以使用更便捷的语法来创建和初始化一个数组：
+
+```java
+int[] anArray = { 
+    100, 200, 300,
+    400, 500, 600, 
+    700, 800, 900, 1000
+};
+```
+
+这里数组的长度由花括号之间提供的值的数量决定，并用逗号分隔。
+
+您还可以使用两组或更多组括号（如String [][]名称）声明一个数组数组（也称为多维数组）。 因此，每个元素必须通过相应数量的索引值进行访问。
+
+在Java编程语言中，多维数组是其组件本身就是数组的数组。 这与C或Fortran中的数组不同。 这样做的结果是允许行的长度变化，如下面的MultiDimArrayDemo程序所示：
+
+```java
+class MultiDimArrayDemo {
+    public static void main(String[] args) {
+        String[][] names = {
+            {"Mr. ", "Mrs. ", "Ms. "},
+            {"Smith", "Jones"}
+        };
+        // Mr. Smith
+        System.out.println(names[0][0] + names[1][0]);
+        // Ms. Jones
+        System.out.println(names[0][2] + names[1][1]);
+    }
+}
+```
+
+这个程序的输出是：
+
+```java
+Mr. Smith
+Ms. Jones
+```
+
+最后，您可以使用内置长度属性来确定任何数组的大小。 以下代码将数组的大小打印到标准输出：
+
+```java
+System.out.println(anArray.length);
+```
+
+##### 复制数组
+
+System类有一个arraycopy方法，可以用来有效地将数据从一个数组复制到另一个数组中：
+
+```java
+public static void arraycopy(Object src, int srcPos,
+                             Object dest, int destPos, int length)
+```
+
+两个Object参数指定要从中复制的阵列和要复制到的阵列。 三个int参数指定源数组中的起始位置，目标数组中的起始位置以及要复制的数组元素的数量。
+
+以下程序ArrayCopyDemo声明一组char元素，拼写单词“decaffeinated.”。 它使用System.arraycopy方法将数组组件的子序列复制到第二个数组中：
+
+```java
+class ArrayCopyDemo {
+    public static void main(String[] args) {
+        char[] copyFrom = { 'd', 'e', 'c', 'a', 'f', 'f', 'e',
+			    'i', 'n', 'a', 't', 'e', 'd' };
+        char[] copyTo = new char[7];
+
+        System.arraycopy(copyFrom, 2, copyTo, 0, 7);
+        System.out.println(new String(copyTo));
+    }
+}
+```
+
+这个程序的输出是：
+
+```
+caffein
+```
+
+##### 数组操作
+
+数组是编程中使用的一个强大且有用的概念。 Java SE提供了执行与数组相关的一些最常见操作的方法。 例如，ArrayCopyDemo示例使用System类的arraycopy方法，而不是手动迭代源数组的元素，并将每个元素放入目标数组中。 这是在幕后执行的，使开发人员只需使用一行代码即可调用该方法。
+
+为了您的方便，Java SE提供了几种用于在java.util.Arrays类中执行数组操作（常见任务，如复制，排序和搜索数组）的方法。 例如，可以修改前面的示例以使用java.util.Arrays类的copyOfRange方法，如ArrayCopyOfDemo示例中所示。 区别在于使用copyOfRange方法不需要您在调用方法之前创建目标数组，因为目标数组是由方法返回的：
+
+```java
+class ArrayCopyOfDemo {
+    public static void main(String[] args) {
+        
+        char[] copyFrom = {'d', 'e', 'c', 'a', 'f', 'f', 'e',
+            'i', 'n', 'a', 't', 'e', 'd'};
+            
+        char[] copyTo = java.util.Arrays.copyOfRange(copyFrom, 2, 9);
+        
+        System.out.println(new String(copyTo));
+    }
+}
+```
+
+正如你所看到的，这个程序的输出是相同的（caffein），尽管它需要更少的代码。 请注意，copyOfRange方法的第二个参数是要复制的范围的初始索引（包含），而第三个参数是要复制范围的最终索引。 在此示例中，要复制的范围不包括索引为9的数组元素（其中包含字符a）。
+
+java.util.Arrays类中的方法提供的一些其他有用的操作是：
+
+- 在数组中搜索特定值以获取放置它的索引（binarySearch方法）。
+- 比较两个数组以确定它们是否相等（equals方法）。
+- 填充数组以在每个索引处放置特定值（fill方法）。
+- 按升序排列数组。 这可以使用排序方法按顺序完成，也可以使用Java SE 8中引入的parallelSort方法同时完成。多处理器系统上的大型数组的并行排序比顺序数组排序要快。
 
 ### 运算符
 
