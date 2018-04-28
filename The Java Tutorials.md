@@ -1579,7 +1579,98 @@ class DoWhileDemo {
 }
 ```
 
+#### for语句
 
+for语句提供了一种简洁的方式来遍历一系列值。 程序员经常将其称为“for循环”，因为它的重复循环方式直到满足特定的条件。 for语句的一般形式可以表示如下：
+
+```java
+for (initialization; termination;
+     increment) {
+    statement(s)
+}
+```
+
+在使用for语句的这个版本时，请记住：
+
+- 初始化表达式初始化循环; 它会在循环开始时执行一次。
+- 当终止表达式计算结果为false时，循环终止。
+- 增量表达式在循环的每次迭代之后被调用; 这个表达式增加或减少一个值是完全可以接受的。
+
+以下程序ForDemo使用for语句的一般形式将数字1到10打印到标准输出：
+
+```java
+class ForDemo {
+    public static void main(String[] args){
+         for(int i=1; i<11; i++){
+              System.out.println("Count is: " + i);
+         }
+    }
+}
+```
+
+这个程序的输出是：
+
+```java
+Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Count is: 6
+Count is: 7
+Count is: 8
+Count is: 9
+Count is: 10
+```
+
+注意代码如何在初始化表达式中声明一个变量。 该变量的范围从其声明扩展到由for语句控制的块的末尾，因此它也可以用于终止和增量表达式。 如果在循环之外不需要控制for语句的变量，最好在初始化表达式中声明该变量。 名称i，j和k通常用于控制循环; 在初始化表达式中声明它们会限制它们的使用寿命并减少错误。
+
+for循环的三个表达式是可选的; 可以创建一个无限循环如下：
+
+```java
+// infinite loop
+for ( ; ; ) {
+    
+    // your code goes here
+}
+```
+
+for语句还具有另一种用于迭代集合和数组的迭代形式。此表单有时称为增强式for语句，可用于使循环更紧凑且易于阅读。 为了演示，考虑下面的数组，它包含数字1到10：
+
+```java
+int[] numbers = {1,2,3,4,5,6,7,8,9,10};
+```
+
+以下程序EnhancedForDemo使用增强型for循环访问数组：
+
+```java
+class EnhancedForDemo {
+    public static void main(String[] args){
+         int[] numbers = 
+             {1,2,3,4,5,6,7,8,9,10};
+         for (int item : numbers) {
+             System.out.println("Count is: " + item);
+         }
+    }
+}
+```
+
+在这个例子中，变量item保存numbers数组中的当前值。 该程序的输出与以前相同：
+
+```java
+Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Count is: 6
+Count is: 7
+Count is: 8
+Count is: 9
+Count is: 10
+```
+
+我们建议尽可能使用for语句的这种形式，而不是一般形式。
 
 ## 类和对象
 
