@@ -753,6 +753,191 @@ Java编程语言使用“字段”和“变量”作为其术语的一部分。 
 
 现在你已经学会了如何声明和初始化变量，你可能想知道如何对它们做些什么。 学习Java编程语言的操作符是一个很好的开始。 运算符是对一个，两个或三个操作数执行特定操作的特殊符号，然后返回结果。
 
+在我们探索Java编程语言的运算符时，提前知道哪些运算符具有最高优先级可能会对您有所帮助。 下表中的运算符按优先顺序列出。 操作员出现在靠近表格顶部的位置时，其优先级越高。 具有较高优先级的运算符在优先级相对较低的运算符之前进行运算。 同一生产线上的操作员具有同等优先权。 当相同优先级的运算符出现在同一个表达式中时，必须先规定哪个运算符首先被运算。 除赋值运算符外的所有二元运算符都从左到右进行求值; 赋值运算符从右向左运算。
+
+运算符优先级
+
+|     运算符     | 优先级                                   |
+| :------------: | :--------------------------------------- |
+|      后缀      | `*expr*++ *expr*--`                      |
+|      一元      | `++*expr* --*expr* +*expr* -*expr* ~ !`  |
+| multiplicative | `* / %`                                  |
+|    additive    | `+ -`                                    |
+|      移位      | `<< >> >>>`                              |
+|   关系运算符   | `< > <= >= instanceof`                   |
+|    equality    | == !=                                    |
+|     按位与     | &                                        |
+|    按位异或    | ^                                        |
+|       或       | \|                                       |
+|     逻辑与     | &&                                       |
+|     逻辑或     | \|\|                                     |
+|      三元      | ?:                                       |
+|      分配      | `= += -= *= /= %= &= ^= |= <<= >>= >>>=` |
+
+在通用编程中，某些操作符往往比其他操作符更频繁出现; 例如，赋值运算符“=”远比无符号右移运算符“>>>”更常见。 考虑到这一点，下面的讨论首先关注经常使用的操作符，然后将重点放在那些不常见的操作符上。 每个讨论都伴随着您可以编译和运行的示例代码。 学习它的输出将有助于巩固你刚刚学到的东西。
+
+#### 赋值，算术和一元运算符
+
+##### 简单赋值运算符
+
+您将遇到的最常见的操作符之一是简单赋值运算符“=”。 你在Bicycle类中看到了这个操作符; 它将右边的值赋给左边的操作数：
+
+```java
+int cadence = 0;
+int speed = 0;
+int gear = 1;
+```
+
+此操作符也可用于对象以分配对象引用，如创建对象中所述。
+
+##### 算术运算符
+
+Java编程语言为执行加法，减法，乘法和除法的操作符提供了操作。 很有可能你会在基础数学中认识他们。 唯一可能看起来很新的符号是“％”，它将一个操作数除以另一个操作数，并将余数作为结果返回。
+
+| 操作符 | 描述                           |
+| :----: | ------------------------------ |
+|   +    | 加法运算符（也用于字符串连接） |
+|   -    | 减法运算符                     |
+|   *    | 乘法运算符                     |
+|   /    | 出发运算符                     |
+|   %    | 取余运算符                     |
+
+以下程序ArithmeticDemo测试算术运算符。
+
+```java
+ public static void main (String[] args) {
+
+        int result = 1 + 2;
+        // result is now 3
+        System.out.println("1 + 2 = " + result);
+        int original_result = result;
+
+        result = result - 1;
+        // result is now 2
+        System.out.println(original_result + " - 1 = " + result);
+        original_result = result;
+
+        result = result * 2;
+        // result is now 4
+        System.out.println(original_result + " * 2 = " + result);
+        original_result = result;
+
+        result = result / 2;
+        // result is now 2
+        System.out.println(original_result + " / 2 = " + result);
+        original_result = result;
+
+        result = result + 8;
+        // result is now 10
+        System.out.println(original_result + " + 8 = " + result);
+        original_result = result;
+
+        result = result % 7;
+        // result is now 3
+        System.out.println(original_result + " % 7 = " + result);
+    }
+}
+```
+
+该程序打印以下内容：
+
+```java
+1 + 2 = 3
+3 - 1 = 2
+2 * 2 = 4
+4 / 2 = 2
+2 + 8 = 10
+10 % 7 = 3
+```
+
+您还可以将算术运算符与简单赋值运算符组合以创建复合赋值。 例如，x + = 1; 和x = x + 1; 都将x的值增加1。
+
++运算符也可以用于连接（连接）两个字符串，如下面的ConcatDemo程序所示：
+
+```java
+
+class ConcatDemo {
+    public static void main(String[] args){
+        String firstString = "This is";
+        String secondString = " a concatenated string.";
+        String thirdString = firstString+secondString;
+        System.out.println(thirdString);
+    }
+}
+```
+
+在这个程序结束时，变量thirdString包含“This is a concatenated string.”，它被打印到标准输出。
+
+##### 一元运算符
+
+一元运算符只需要一个操作数; 它们执行各种操作，例如将值递增/递减1，否定表达式或反转布尔值。
+
+| 运算符 | 描述                                           |
+| :----: | ---------------------------------------------- |
+|   +    | 一元加运算符; 表示正值（但没有这个数字是正数） |
+|   -    | 一元减运算符; 否定表达                         |
+|   ++   | 自增运算符; 将值增加1                          |
+|   --   | 自减运算符; 将值减少1                          |
+|   ！   | 逻辑取反运算符                                 |
+
+以下程序UnaryDemo测试一元运算符：
+
+```java
+class UnaryDemo {
+
+    public static void main(String[] args) {
+
+        int result = +1;
+        // result is now 1
+        System.out.println(result);
+
+        result--;
+        // result is now 0
+        System.out.println(result);
+
+        result++;
+        // result is now 1
+        System.out.println(result);
+
+        result = -result;
+        // result is now -1
+        System.out.println(result);
+
+        boolean success = false;
+        // false
+        System.out.println(success);
+        // true
+        System.out.println(!success);
+    }
+}
+```
+
+增量/减量运算符可以在操作数之前（前缀）或之后（后缀）应用。 代码result++; 和++result; 两者的结果都会以1递增。 唯一的区别是前缀版本（++result）评估为递增值，而后缀版本（result++）评估为原始值。 如果您只是执行简单的递增/递减操作，则选择哪个版本无关紧要。 但是如果你在更大的表达式中使用这个运算符，那么你选择的运算符可能会有很大的不同。
+
+以下程序PrePostDemo说明了前缀/后缀一元增量运算符：
+
+```java
+class PrePostDemo {
+    public static void main(String[] args){
+        int i = 3;
+        i++;
+        // prints 4
+        System.out.println(i);
+        ++i;			   
+        // prints 5
+        System.out.println(i);
+        // prints 6
+        System.out.println(++i);
+        // prints 6
+        System.out.println(i++);
+        // prints 7
+        System.out.println(i);
+    }
+}
+```
+
+
+
 ### 表达式，语句和块
 
 ### 控制流语句
