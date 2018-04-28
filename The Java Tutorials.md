@@ -214,9 +214,71 @@ class MountainBike extends Bicycle {
 
 接口是类与外部世界的契约。 当一个类实现一个接口时，它承诺提供该接口发布的行为。 本节定义了一个简单的接口，并解释了实现它的任何类的必要更改。
 
+正如你已经知道的那样，对象通过它们公开的方法来定义它们与外界的交互。 方法形成对象与外界的接口; 例如，电视机前面的按钮就是您和塑料外壳另一侧电线之间的接口。 您按下“电源”按钮打开和关闭电视机。
+
+在其最常见的形式中，接口是一组没有方法体的相关方法。 如果指定为接口，自行车的行为可能如下所示：
+
+```java
+interface Bicycle {
+
+    //  wheel revolutions per minute
+    void changeCadence(int newValue);
+
+    void changeGear(int newValue);
+
+    void speedUp(int increment);
+
+    void applyBrakes(int decrement);
+}
+```
+
+为了实现这个接口，你的类的名字会改变（例如，一个特定品牌的自行车，例如ACMEBicycle），你可以在类声明中使用implements关键字：
+
+```java
+class ACMEBicycle implements Bicycle {
+
+    int cadence = 0;
+    int speed = 0;
+    int gear = 1;
+
+   // The compiler will now require that methods
+   // changeCadence, changeGear, speedUp, and applyBrakes
+   // all be implemented. Compilation will fail if those
+   // methods are missing from this class.
+
+    void changeCadence(int newValue) {
+         cadence = newValue;
+    }
+
+    void changeGear(int newValue) {
+         gear = newValue;
+    }
+
+    void speedUp(int increment) {
+         speed = speed + increment;   
+    }
+
+    void applyBrakes(int decrement) {
+         speed = speed - decrement;
+    }
+
+    void printStates() {
+         System.out.println("cadence:" +
+             cadence + " speed:" + 
+             speed + " gear:" + gear);
+    }
+}
+```
+
+实现一个接口允许一个类对它承诺提供的行为变得更加正式。 接口形成了类和外部世界之间的契约，并且这个契约在编译器的编译时执行。 如果您的类声明实现了一个接口，那么在该类成功编译之前，该接口定义的所有方法都必须出现在其源代码中。
+
+注意：要实际编译ACMEBicycle类，您需要将public关键字添加到实现的接口方法的开头。 稍后您将在类和对象以及接口和继承的课程中了解其原因。
+
 ### 什么是包？
 
 包是一种以逻辑方式组织类和接口的名称空间。 将您的代码放入软件包中可以使大型软件项目更易于管理。 本节解释了为什么这很有用，并向您介绍了Java平台提供的应用程序编程接口（API）。
+
+包是一个命名空间，它组织一组相关的类和接口。 从概念上讲，您可以将软件包视为与计算机上的不同文件夹类似。 您可以将HTML页面保存在一个文件夹中，另一个文件中包含图像，另一个文件夹中包含脚本或应用程序。 因为用Java编程语言编写的软件可以由数百或数千个单独的类组成，所以通过将相关的类和接口放入包中来组织事物是很有意义的。
 
 ### 问题和练习
 
