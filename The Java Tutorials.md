@@ -1088,9 +1088,201 @@ Java编程语言还提供了对整型类型执行按位和位移操作的运算�
 
 按位| 运算符执行按位或运算。
 
+以下程序BitDemo使用按位AND运算符将数字“2”打印到标准输出。
+
+```java
+class BitDemo {
+    public static void main(String[] args) {
+        int bitmask = 0x000F;
+        int val = 0x2222;
+        // prints "2"
+        System.out.println(val & bitmask);
+    }
+}
+```
+
+
+
 ### 表达式，语句和块
 
+现在你已经理解了变量和操作符，现在该学习表达式，语句和块。 运算符可以用于构建计算值的表达式; 表达式是语句的核心组成部分; 语句可以组成块。
+
+#### 表达式
+
+表达式是一个由变量，运算符和方法调用组成的构造，它们是根据语言的语法构建的，其评估为单个值。 您已经看过表达式的例子，如下所示：
+
+```java
+int cadence = 0;
+anArray[0] = 100;
+System.out.println("Element 1 at index 0: " + anArray[0]);
+
+int result = 1 + 2; // result is now 3
+if (value1 == value2) 
+    System.out.println("value1 == value2");
+```
+
+表达式返回的值的数据类型取决于表达式中使用的元素。 表达式cadence = 0返回一个int，因为赋值操作符返回与其左手操作数相同数据类型的值; 在这种情况下，节奏是一个整数。 正如您从其他表达式中看到的，表达式也可以返回其他类型的值，例如布尔值或字符串。
+
+Java编程语言允许您从各种较小的表达式构造复合表达式，只要表达式的一部分所需的数据类型与另一部分的数据类型匹配即可。 下面是一个复合表达式的例子：
+
+```java
+1 * 2 * 3
+```
+
+在这个特定的例子中，评估表达式的顺序并不重要，因为乘法的结果与顺序无关; 无论按照何种顺序应用乘法，结果总是相同的。 但是，这并非所有表达式都适用。 例如，下面的表达式会给出不同的结果，具体取决于您是先执行加法还是除法操作：
+
+```java
+x + y / 100    // ambiguous
+```
+
+您可以准确指定如何使用平衡圆括号评估表达式:(和）。 例如，要使前面的表达式明确无误，可以编写以下内容：
+
+```java
+(x + y) / 100  // unambiguous, recommended
+```
+
+如果您没有明确指出要执行的操作的顺序，则顺序由分配给表达式中使用的操作符的优先级确定。 优先级较高的运算符首先得到评估。 例如，除法运算符的优先级高于加法运算符。 因此，以下两个陈述是等同的：
+
+```java
+x + y / 100 
+
+
+x + (y / 100) // unambiguous, recommended
+```
+
+在编写复合表达式时，应明确指出，并用括号表示首先应执行哪些运算符。 这种做法使代码更易于阅读和维护。
+
+#### 语句
+
+语句大致相当于自然语言中的句子。 一条语句构成了一个完整的执行单位。 通过用分号（;）终止表达式，可以将以下类型的表达式变为语句。
+
+- 赋值表达式
+- 任何使用++或 - -
+- 方法调用
+- 对象创建表达式
+
+这些语句被称为表达式语句。 这里有一些表达式语句的例子。
+
+```java
+// assignment statement
+aValue = 8933.234;
+// increment statement
+aValue++;
+// method invocation statement
+System.out.println("Hello World!");
+// object creation statement
+Bicycle myBike = new Bicycle();
+```
+
+除了表达式语句之外，还有两种其他类型的语句：声明语句和控制流语句。 声明语句声明一个变量。 你已经看到很多声明语句的例子：
+
+```java
+// declaration statement
+double aValue = 8933.234;
+```
+
+最后，控制流程语句调节语句执行的顺序。 您将在下一部分“控制流量表”中了解控制流语句
+
+#### 块
+
+块是平衡花括号之间的一组零个或多个语句，可以在允许单个语句的任何位置使用。 以下示例BlockDemo说明了块的用法：
+
+```java
+class BlockDemo {
+     public static void main(String[] args) {
+          boolean condition = true;
+          if (condition) { // begin block 1
+               System.out.println("Condition is true.");
+          } // end block one
+          else { // begin block 2
+               System.out.println("Condition is false.");
+          } // end block 2
+     }
+}
+```
+
+
+
 ### 控制流语句
+
+源文件中的语句通常按照它们出现的顺序从上到下执行。 但是，控制流程语句通过使用决策制定，循环和分支来分解执行流程，从而使程序有条件地执行特定的代码块。 本节介绍Java支持的决策语句（if-then，if-then-else，switch），循环语句（for，while，do-while）和分支语句（break，continue，return） 编程语言。
+
+#### if-then和if-then-else语句
+
+##### if-then语句
+
+if-then语句是所有控制流程语句中最基本的。 它告诉你的程序只有在特定的测试评估为真时才执行某段代码。 例如，自行车类只有在自行车已经运动时才允许制动器降低自行车的速度。 applyBrakes方法的一种可能的实现方式如下：
+
+```java
+void applyBrakes() {
+    // the "if" clause: bicycle must be moving
+    if (isMoving){ 
+        // the "then" clause: decrease current speed
+        currentSpeed--;
+    }
+}
+```
+
+如果该测试判断为假（意思是自行车没有运动），则控制跳转到if-then语句的末尾。
+
+另外，“then”子句只包含一个语句，打开和关闭大括号是可选的：
+
+```
+void applyBrakes() {
+    // same as above, but without braces 
+    if (isMoving)
+        currentSpeed--;
+}
+```
+
+决定何时省略大括号是个人品味的问题。 省略它们会使代码变得更脆弱。 如果第二个语句后来被添加到“then”子句中，则常见的错误是忘记添加新需要的大括号。 编译器无法捕捉到这种错误; 你只会得到错误的结果。
+
+##### if-then-else语句
+
+if-then-else语句在“if”子句判断为false时提供执行的辅助路径。 如果在自行车未运动时施加制动，您可以在applyBrakes方法中使用if-then-else语句采取一些行动。 在这种情况下，动作是简单地打印一条错误消息，指出自行车已经停止。
+
+```java
+void applyBrakes() {
+    if (isMoving) {
+        currentSpeed--;
+    } else {
+        System.err.println("The bicycle has already stopped!");
+    } 
+}
+```
+
+以下程序IfElseDemo根据测试分数的值分配等级：A分数为90％或以上，B分数为80％或以上，等等。
+
+```java
+class IfElseDemo {
+    public static void main(String[] args) {
+
+        int testscore = 76;
+        char grade;
+
+        if (testscore >= 90) {
+            grade = 'A';
+        } else if (testscore >= 80) {
+            grade = 'B';
+        } else if (testscore >= 70) {
+            grade = 'C';
+        } else if (testscore >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+        System.out.println("Grade = " + grade);
+    }
+}
+```
+
+程序的输出是：
+
+```java
+Grade = C
+```
+
+您可能已经注意到，testscore的值可以满足复合语句中的多个表达式：76> = 70和76> = 60.但是，一旦条件满足，将执行相应的语句（等级='C'; ）并且其余条件不被执行。
 
 ## 类和对象
 
