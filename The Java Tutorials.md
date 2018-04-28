@@ -1284,6 +1284,247 @@ Grade = C
 
 您可能已经注意到，testscore的值可以满足复合语句中的多个表达式：76> = 70和76> = 60.但是，一旦条件满足，将执行相应的语句（等级='C'; ）并且其余条件不被执行。
 
+#### switch语句
+
+与if-then和if-then-else语句不同，switch语句可以有许多可能的执行路径。 switch语句使用byte，short，char和int基本数据类型。 它也适用于枚举类型（在枚举类型中讨论），String类和几个包装某些基本类型的特殊类：Character，Byte，Short和Integer（在Numbers和Strings中讨论）。
+
+下面的代码示例SwitchDemo声明了一个名为month的int值，其值表示一个月份。 该代码使用switch语句根据月份的值显示月份的名称。
+
+```java
+public class SwitchDemo {
+    public static void main(String[] args) {
+
+        int month = 8;
+        String monthString;
+        switch (month) {
+            case 1:  monthString = "January";
+                     break;
+            case 2:  monthString = "February";
+                     break;
+            case 3:  monthString = "March";
+                     break;
+            case 4:  monthString = "April";
+                     break;
+            case 5:  monthString = "May";
+                     break;
+            case 6:  monthString = "June";
+                     break;
+            case 7:  monthString = "July";
+                     break;
+            case 8:  monthString = "August";
+                     break;
+            case 9:  monthString = "September";
+                     break;
+            case 10: monthString = "October";
+                     break;
+            case 11: monthString = "November";
+                     break;
+            case 12: monthString = "December";
+                     break;
+            default: monthString = "Invalid month";
+                     break;
+        }
+        System.out.println(monthString);
+    }
+}
+```
+
+在这种情况下，8月将打印到标准输出。
+
+switch语句的主体被称为switch块。 switch块中的语句可以标注一个或多个案例或默认标签。 switch语句评估其表达式，然后执行匹配大小写标签后面的所有语句。
+
+您还可以使用if-then-else语句显示月份的名称：
+
+```java
+int month = 8;
+if (month == 1) {
+    System.out.println("January");
+} else if (month == 2) {
+    System.out.println("February");
+}
+...  // and so on
+```
+
+决定是否使用if-then-else语句或switch语句基于可读性和语句正在测试的表达式。 if-then-else语句可以基于值或条件的范围来测试表达式，而switch语句仅基于单个整数，枚举值或String对象来测试表达式。
+
+另一个兴趣点是break语句。 每个break语句终止封闭的switch语句。 控制流程继续执行开关块后的第一条语句。 break语句是必需的，因为如果没有它们，switch块中的语句会落空：匹配case标号后面的所有语句按顺序执行，而不管后续case标号的表达式如何，直到遇到break语句为止。 程序SwitchDemoFallThrough在开关块中显示语句。 该程序显示对应于整数月份和下一年的月份：
+
+```java
+public class SwitchDemoFallThrough {
+
+    public static void main(String[] args) {
+        java.util.ArrayList<String> futureMonths =
+            new java.util.ArrayList<String>();
+
+        int month = 8;
+
+        switch (month) {
+            case 1:  futureMonths.add("January");
+            case 2:  futureMonths.add("February");
+            case 3:  futureMonths.add("March");
+            case 4:  futureMonths.add("April");
+            case 5:  futureMonths.add("May");
+            case 6:  futureMonths.add("June");
+            case 7:  futureMonths.add("July");
+            case 8:  futureMonths.add("August");
+            case 9:  futureMonths.add("September");
+            case 10: futureMonths.add("October");
+            case 11: futureMonths.add("November");
+            case 12: futureMonths.add("December");
+                     break;
+            default: break;
+        }
+
+        if (futureMonths.isEmpty()) {
+            System.out.println("Invalid month number");
+        } else {
+            for (String monthName : futureMonths) {
+               System.out.println(monthName);
+            }
+        }
+    }
+}
+```
+
+这是代码的输出：
+
+```java
+August
+September
+October
+November
+December
+```
+
+从技术上讲，最后的break语句不是必需的，因为流程不在switch语句中。 建议使用break语句，以便修改代码更容易，更不容易出错。 缺省部分处理所有未包含在前面case的情况。
+
+以下代码示例SwitchDemo2显示语句如何具有多个案例标签。 代码示例计算特定月份的天数：
+
+```java
+class SwitchDemo2 {
+    public static void main(String[] args) {
+
+        int month = 2;
+        int year = 2000;
+        int numDays = 0;
+
+        switch (month) {
+            case 1: case 3: case 5:
+            case 7: case 8: case 10:
+            case 12:
+                numDays = 31;
+                break;
+            case 4: case 6:
+            case 9: case 11:
+                numDays = 30;
+                break;
+            case 2:
+                if (((year % 4 == 0) && 
+                     !(year % 100 == 0))
+                     || (year % 400 == 0))
+                    numDays = 29;
+                else
+                    numDays = 28;
+                break;
+            default:
+                System.out.println("Invalid month.");
+                break;
+        }
+        System.out.println("Number of Days = "
+                           + numDays);
+    }
+}
+```
+
+这是代码的输出：
+
+```java
+Number of Days = 29
+```
+
+##### 在switch语句中使用字符串
+
+在Java SE 7和更高版本中，可以在switch语句的表达式中使用String对象。 以下代码示例StringSwitchDemo根据名为month的字符串的值显示月份的编号：
+
+```java
+
+public class StringSwitchDemo {
+
+    public static int getMonthNumber(String month) {
+
+        int monthNumber = 0;
+
+        if (month == null) {
+            return monthNumber;
+        }
+
+        switch (month.toLowerCase()) {
+            case "january":
+                monthNumber = 1;
+                break;
+            case "february":
+                monthNumber = 2;
+                break;
+            case "march":
+                monthNumber = 3;
+                break;
+            case "april":
+                monthNumber = 4;
+                break;
+            case "may":
+                monthNumber = 5;
+                break;
+            case "june":
+                monthNumber = 6;
+                break;
+            case "july":
+                monthNumber = 7;
+                break;
+            case "august":
+                monthNumber = 8;
+                break;
+            case "september":
+                monthNumber = 9;
+                break;
+            case "october":
+                monthNumber = 10;
+                break;
+            case "november":
+                monthNumber = 11;
+                break;
+            case "december":
+                monthNumber = 12;
+                break;
+            default: 
+                monthNumber = 0;
+                break;
+        }
+
+        return monthNumber;
+    }
+
+    public static void main(String[] args) {
+
+        String month = "August";
+
+        int returnedMonthNumber =
+            StringSwitchDemo.getMonthNumber(month);
+
+        if (returnedMonthNumber == 0) {
+            System.out.println("Invalid month");
+        } else {
+            System.out.println(returnedMonthNumber);
+        }
+    }
+}
+```
+
+该代码的输出是8。
+
+switch表达式中的字符串与每个case标签关联的表达式进行比较，就好像正在使用String.equals方法一样。 为了使StringSwitchDemo示例接受任何月份而不考虑大小写，月份将转换为小写（使用toLowerCase方法），并且与案例标签关联的所有字符串均为小写字母。
+
+注意：此示例检查switch语句中的表达式是否为空。 确保任何switch语句中的表达式不为空以防止抛出NullPointerException。
+
 ## 类和对象
 
 ## 注释
