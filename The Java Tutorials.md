@@ -1525,6 +1525,62 @@ switch表达式中的字符串与每个case标签关联的表达式进行比较�
 
 注意：此示例检查switch语句中的表达式是否为空。 确保任何switch语句中的表达式不为空以防止抛出NullPointerException。
 
+#### while和do-while语句
+
+while语句在特定条件成立时连续执行一组语句。 其语法可以表示为：
+
+```java
+while (expression) {
+     statement(s)
+}
+```
+
+while语句评估表达式，它必须返回一个布尔值。 如果表达式的计算结果为true，则while语句将执行while块中的语句。 while语句继续测试表达式并执行其块，直到表达式计算结果为false。 使用while语句打印从1到10的值可以在以下WhileDemo程序中完成：
+
+```java
+class WhileDemo {
+    public static void main(String[] args){
+        int count = 1;
+        while (count < 11) {
+            System.out.println("Count is: " + count);
+            count++;
+        }
+    }
+}
+```
+
+您可以使用while语句实现无限循环，如下所示：
+
+```java
+while (true){
+    // your code goes here
+}
+```
+
+Java编程语言还提供了do-while语句，可以如下表示：
+
+```java
+do {
+     statement(s)
+} while (expression);
+```
+
+do-while和while之间的区别在于do-while在循环底部而不是顶部判断其表达式。 因此，do块中的语句总是至少执行一次，如下面的DoWhileDemo程序所示：
+
+```java
+class DoWhileDemo {
+    public static void main(String[] args){
+        int count = 1;
+        do {
+            System.out.println("Count is: " + count);
+            count++;
+        } while (count < 11);
+    }
+}
+```
+
+
+
 ## 类和对象
 
 ## 注释
