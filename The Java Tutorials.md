@@ -1672,6 +1672,172 @@ Count is: 10
 
 我们建议尽可能使用for语句的这种形式，而不是一般形式。
 
+#### 分支语句
+
+##### break语句
+
+break语句有两种形式：带标签和无标签。 您在前面关于switch语句的讨论中看到了无标签的表单。 您还可以使用未标记的中断来终止for，while或do-while循环，如以下BreakDemo程序中所示：
+
+```java
+class BreakDemo {
+    public static void main(String[] args) {
+
+        int[] arrayOfInts = 
+            { 32, 87, 3, 589,
+              12, 1076, 2000,
+              8, 622, 127 };
+        int searchfor = 12;
+
+        int i;
+        boolean foundIt = false;
+
+        for (i = 0; i < arrayOfInts.length; i++) {
+            if (arrayOfInts[i] == searchfor) {
+                foundIt = true;
+                break;
+            }
+        }
+
+        if (foundIt) {
+            System.out.println("Found " + searchfor + " at index " + i);
+        } else {
+            System.out.println(searchfor + " not in the array");
+        }
+    }
+}
+```
+
+该程序在数组中搜索数字12。 以粗体显示的break语句在找到该值时终止for循环。 然后控制流程在for循环之后转移到语句。 这个程序的输出是：
+
+```java
+Found 12 at index 4
+```
+
+未标记的break语句终止最内层的switch，for，while或do-while语句，但带标签的break会终止外部语句。 以下程序BreakWithLabelDemo与前一个程序类似，但使用嵌套for循环搜索二维数组中的值。 当找到该值时，标记的中断会终止循环外部（标记为“搜索”）：
+
+```java
+class BreakWithLabelDemo {
+    public static void main(String[] args) {
+
+        int[][] arrayOfInts = { 
+            { 32, 87, 3, 589 },
+            { 12, 1076, 2000, 8 },
+            { 622, 127, 77, 955 }
+        };
+        int searchfor = 12;
+
+        int i;
+        int j = 0;
+        boolean foundIt = false;
+
+    search:
+        for (i = 0; i < arrayOfInts.length; i++) {
+            for (j = 0; j < arrayOfInts[i].length;
+                 j++) {
+                if (arrayOfInts[i][j] == searchfor) {
+                    foundIt = true;
+                    break search;
+                }
+            }
+        }
+
+        if (foundIt) {
+            System.out.println("Found " + searchfor + " at " + i + ", " + j);
+        } else {
+            System.out.println(searchfor + " not in the array");
+        }
+    }
+}
+```
+
+这是该程序的输出:
+
+```java
+Found 12 at 1, 0
+```
+
+break语句终止带标签的语句; 它不会将控制流转移到标签上。 控制流被转移到紧随标签（已终止）语句之后的语句中。
+
+##### Continue语句
+
+continue语句跳过for，while或do-while循环的当前迭代。 无标签的形式跳到最内层循环体的末尾，并计算控制循环的布尔表达式。 下面的程序，ContinueDemo，遍历字符串，计算字母“p”的出现次数。 如果当前字符不是p，continue语句会跳过循环的其余部分并继续下一个字符。 如果它是“p”，程序会增加字母计数。
+
+```java
+class ContinueDemo {
+    public static void main(String[] args) {
+
+        String searchMe = "peter piper picked a " + "peck of pickled peppers";
+        int max = searchMe.length();
+        int numPs = 0;
+
+        for (int i = 0; i < max; i++) {
+            // interested only in p's
+            if (searchMe.charAt(i) != 'p')
+                continue;
+
+            // process p's
+            numPs++;
+        }
+        System.out.println("Found " + numPs + " p's in the string.");
+    }
+}
+```
+
+这是这个程序的输出：
+
+```
+Found 9 p's in the string.
+```
+
+要更清楚地看到此效果，请尝试删除continue语句并重新编译。 当你再次运行程序时，计数将是错误的，说它发现了35 p而不是9。
+
+带标签的continue语句跳过用给定标签标记的外部循环的当前迭代。 以下示例程序ContinueWithLabelDemo使用嵌套循环搜索另一个字符串中的子字符串。 需要两个嵌套循环：一个迭代子字符串，一个迭代要搜索的字符串。 以下程序ContinueWithLabelDemo使用继续的标记形式跳过外循环中的迭代。
+
+```java
+class ContinueWithLabelDemo {
+    public static void main(String[] args) {
+
+        String searchMe = "Look for a substring in me";
+        String substring = "sub";
+        boolean foundIt = false;
+
+        int max = searchMe.length() - 
+                  substring.length();
+
+    test:
+        for (int i = 0; i <= max; i++) {
+            int n = substring.length();
+            int j = i;
+            int k = 0;
+            while (n-- != 0) {
+                if (searchMe.charAt(j++) != substring.charAt(k++)) {
+                    continue test;
+                }
+            }
+            foundIt = true;
+                break test;
+        }
+        System.out.println(foundIt ? "Found it" : "Didn't find it");
+    }
+}
+```
+
+这是这个程序的输出。
+
+`Found it`
+
+##### return 语句
+
+最后一个分支语句是return语句。 return语句从当前方法退出，并且控制流返回到调用方法的位置。 return语句有两种形式：一种返回值，另一种不返回。 要返回值，只需在return关键字后面放置值（或计算值的表达式）即可。
+
+`return ++count;`
+
+返回值的数据类型必须与方法声明的返回值的类型匹配。 当一个方法被声明为void时，使用不返回值的return形式。
+
+`return;`
+
+类和对象课程将涵盖您需要了解的关于编写方法的一切。
+
 ## 类和对象
 
 ## 注释
