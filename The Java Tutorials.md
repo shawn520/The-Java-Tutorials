@@ -2174,6 +2174,163 @@ public Bicycle() {
 
 注意：如果另一个类不能调用MyClass构造函数，它不能直接创建MyClass对象。
 
+#### 将信息传递给方法或构造函数
+
+方法或构造函数的声明声明了该方法或构造函数的参数的数量和类型。 例如，以下是根据贷款金额，利率，贷款期限（期数）和贷款的未来价值计算住房贷款的每月支付的方法：
+
+```java
+public double computePayment(
+                  double loanAmt,
+                  double rate,
+                  double futureValue,
+                  int numPeriods) {
+    double interest = rate / 100.0;
+    double partial1 = Math.pow((1 + interest), 
+                    - numPeriods);
+    double denominator = (1 - partial1) / interest;
+    double answer = (-loanAmt / denominator)
+                    - ((futureValue * partial1) / denominator);
+    return answer;
+}
+```
+
+该方法有四个参数：贷款金额，利率，期货价值和期数。 前三个是双精度浮点数，第四个是整数。 这些参数在方法主体中使用，并且在运行时将采用传入的参数的值。
+
+注意：参数指的是方法声明中的变量列表。 参数是调用方法时传入的实际值。 当你调用一个方法时，使用的参数必须与类型和顺序中的声明参数相匹配。
+
+##### 参数类型
+
+您可以将任何数据类型用于方法或构造函数的参数。 这包括原型数据类型，如您在computePayment方法中看到的双精度，浮点数和整数，以及引用数据类型，例如对象和数组。您可以将任何数据类型用于方法或构造函数的参数。 这包括原型数据类型，如您在computePayment方法中看到的双精度，浮点数和整数，以及引用数据类型，例如对象和数组。
+
+下面是一个接受数组作为参数的方法的示例。 在这个例子中，该方法创建一个新的Polygon对象，并从一个Point对象数组中初始化它（假设Point是一个表示x，y坐标的类）：
+
+```java
+public Polygon polygonFrom(Point[] corners) {
+    // method body goes here
+}
+```
+
+注意：如果要将方法传递给方法，请使用lambda表达式或方法引用。
+
+##### 任意数量的参数
+
+您可以使用称为varargs的构造将任意数量的值传递给方法。 当您不知道将有多少特定类型的参数传递给该方法时，您可以使用可变参数。 这是手动创建数组的快捷方式（以前的方法可能使用了可变参数而不是数组）。
+
+要使用可变参数，可以通过省略号（三个点，...），空间和参数名称跟随最后一个参数的类型。 然后可以用该参数的任意数量调用该方法，包括无。
+
+```java
+public Polygon polygonFrom(Point... corners) {
+    int numberOfSides = corners.length;
+    double squareOfSide1, lengthOfSide1;
+    squareOfSide1 = (corners[1].x - corners[0].x)
+                     * (corners[1].x - corners[0].x) 
+                     + (corners[1].y - corners[0].y)
+                     * (corners[1].y - corners[0].y);
+    lengthOfSide1 = Math.sqrt(squareOfSide1);
+
+    // more method body code follows that creates and returns a 
+    // polygon connecting the Points
+}
+```
+
+您可以看到，在该方法内部，拐角被视为一个数组。 该方法可以通过一个数组或一系列参数来调用。 在任何一种情况下，方法体中的代码都会将参数视为数组。
+
+你会最常见的输出方法的可变参数; 例如，这种printf方法：
+
+`public PrintStream printf(String format, Object... args)`
+
+允许您打印任意数量的对象。 它可以这样调用：
+
+```java
+System.out.printf("%s: %d, %s%n", name, idnum, address);
+```
+
+或者像这样
+
+```java
+System.out.printf("%s: %d, %s, %s, %s%n", name, idnum, address, phone, email);
+```
+
+或者具有不同数量的参数。
+
+##### 参数名称
+
+向方法或构造函数声明参数时，请为该参数提供一个名称。 该名称在方法体内用于引用传入的参数。
+
+参数的名称在其范围内必须是唯一的。 它不能与同一方法或构造函数的另一个参数的名称相同，也不能是方法或构造函数内的局部变量的名称。
+
+一个参数可以和一个类的字段名称相同。 如果是这种情况，则说该参数影响该字段。 阴影字段可能会使您的代码难以阅读，并且通常仅用于设置特定字段的构造函数和方法中。 例如，考虑下面的Circle类和它的setOrigin方法：
+
+```java
+public class Circle {
+    private int x, y, radius;
+    public void setOrigin(int x, int y) {
+        ...
+    }
+}
+```
+
+Circle类有三个字段：x，y和radius。 setOrigin方法有两个参数，每个参数都与其中一个字段具有相同的名称。 每个方法参数都会隐藏共享其名称的字段。 因此，在方法体内使用简单名称x或y是指参数，而不是字段。 要访问该字段，您必须使用合格的名称。 这将在本课后面的“使用此关键字”部分中进行讨论。
+
+##### 传递基本数据类型参数
+
+基本参数（如int或double）通过值传递给方法。 这意味着对参数值的任何更改仅存在于该方法的范围内。 当该方法返回时，参数将消失，对其进行的任何更改都将丢失。 这里是一个例子：
+
+```java
+public class PassPrimitiveByValue {
+
+    public static void main(String[] args) {
+           
+        int x = 3;
+           
+        // invoke passMethod() with 
+        // x as argument
+        passMethod(x);
+           
+        // print x to see if its 
+        // value has changed
+        System.out.println("After invoking passMethod, x = " + x);
+           
+    }
+        
+    // change parameter in passMethod()
+    public static void passMethod(int p) {
+        p = 10;
+    }
+}
+```
+
+当你运行这个程序时，输出是：
+
+```java
+After invoking passMethod, x = 3
+```
+
+##### 传递引用数据类型参数
+
+引用数据类型参数（如对象）也按值传递给方法。 这意味着当方法返回时，传入的引用仍然引用与之前相同的对象。 但是，如果对象的字段的值具有适当的访问级别，则可以在该方法中更改该值的值。
+
+例如，考虑移动Circle对象的任意类中的方法：
+
+```java
+public void moveCircle(Circle circle, int deltaX, int deltaY) {
+    // code to move origin of circle to x+deltaX, y+deltaY
+    circle.setX(circle.getX() + deltaX);
+    circle.setY(circle.getY() + deltaY);
+        
+    // code to assign a new reference to circle
+    circle = new Circle(0, 0);
+}
+```
+
+用这些参数调用该方法：
+
+`moveCircle(myCircle, 23, 56)`
+
+在该方法内部，Circle最初指的是myCircle。 该方法分别将圆形引用（即myCircle）的对象的x和y坐标分别改为23和56。 方法返回时，这些更改将持续。 然后，将circle分配给x = y = 0的新Circle对象的引用。但是，此重新分配没有永久性，因为引用是按值传递的，并且不能更改。 在该方法中，circle所指向的对象已经发生了变化，但是当方法返回时，myCircle仍然会像调用方法之前一样引用同一个Circle对象。
+
+
+
 ### 对象
 
 本节介绍创建和使用对象。 您将学习如何实例化对象，并且在实例化后如何使用点运算符来访问对象的实例变量和方法。
