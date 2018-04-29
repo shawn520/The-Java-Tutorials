@@ -1954,7 +1954,106 @@ class MyClass extends MySuperClass implements YourInterface {
 }
 ```
 
+意味着MyClass是MySuperClass的子类，它实现了YourInterface接口。
 
+您也可以在开始时添加公共或私有等修饰符 - 因此您可以看到类声明的开始行可能变得非常复杂。 确定其他类可以访问MyClass的公共和私有修饰符将在本课稍后部分讨论。 关于接口和继承的教训将解释如何以及为什么要在类声明中使用extends和implements关键字。 目前，您不必担心这些额外的复杂问题。
+
+通常，类声明可以包含这些组件，依次为：
+
+1. 例如public, private, 以及以后会遇到的其他的修饰符。
+2. 类名首字母大写。
+3. 该类的父类（超类）的名称（如果有）以关键字extends开头。 一个类（子类）只能继承一个父类。
+4. 由类实现的以逗号分隔的接口列表（如果有）由关键字implements实现。 一个类可以实现多个接口。
+5. 类的身体包含在大括号{}内。
+
+#### 声明成员变量
+
+有几种变量：
+
+- 类中的成员变量 - 这些称为字段。
+- 方法或代码块中的变量 - 这些变量称为局部变量。
+- 方法声明中的变量 - 这些称为参数。
+
+Bicycle类使用以下代码行来定义其字段：
+
+```java
+public int cadence;
+public int gear;
+public int speed;
+```
+
+字段声明由三部分组成，依次为：
+
+1. 零个或多个修饰符，如public或private。
+2. 该字段的类型。
+3. 该字段的名称。
+
+Bicycle的字段被命名为节奏，齿轮和速度，并且都是数据类型integer（int）。 public关键字将这些字段标识为公共成员，任何可以访问该类的对象都可以访问它们。
+
+##### 访问修饰符
+
+第一个（最左侧）修饰符用于控制其他类可以访问成员字段的其他类。 目前，只考虑public和private。 其他访问修饰符将在稍后讨论。
+
+- public修饰符 - 该字段可从所有类访问。
+- private修饰符 - 该字段只能在其自己的类中访问。
+
+本着封装的精神，将字段私有化是很常见的。 这意味着他们只能从Bicycle类直接访问。 但是，我们仍然需要访问这些值。 这可以通过添加获取我们字段值的公共方法间接完成：
+
+```java
+public class Bicycle {
+        
+    private int cadence;
+    private int gear;
+    private int speed;
+        
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+    }
+        
+    public int getCadence() {
+        return cadence;
+    }
+        
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+        
+    public int getGear() {
+        return gear;
+    }
+        
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+        
+    public int getSpeed() {
+        return speed;
+    }
+        
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+        
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+}
+```
+
+##### 变量类型
+
+所有变量都必须有一个类型。 您可以使用基本类型，如int，float，boolean等。或者，您可以使用引用类型，例如字符串，数组或对象。
+
+##### 变量名称
+
+所有变量，无论它们是字段，局部变量还是参数，都遵循语言基础课程“变量命名”中涵盖的相同命名规则和约定。
+
+在本课中，请注意，相同的命名规则和约定用于方法和类名称，除此之外
+
+- 类名的第一个字母应该大写
+- 方法名中的第一个（或唯一）单词应该是一个动词。
 
 ### 对象
 
