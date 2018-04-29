@@ -1838,7 +1838,139 @@ class ContinueWithLabelDemo {
 
 类和对象课程将涵盖您需要了解的关于编写方法的一切。
 
+### 控制流语句的总结
+
+if-then语句是所有控制流程语句中最基本的。 它告诉你的程序只有在特定的测试判断为真时才执行某段代码。 if-then-else语句在“if”子句评估为false时提供执行的辅助路径。 与if-then和if-then-else不同，switch语句允许任意数量的可能执行路径。 while和do-while语句在特定条件成立时持续执行一组语句。 do-while和while之间的区别在于do-while在循环底部而不是顶部判断其表达式。 因此，do块中的语句总是至少执行一次。 for语句提供了一种简洁的方式来遍历一系列值。 它有两种形式，其中一种是为循环容器和数组而设计的。
+
+### 问题和练习：控制流语句
+
+Questions
+
+1. Java编程语言支持的最基本的控制流语句是___语句。
+2.  ___语句允许任意数量的可能执行路径。
+3. ___语句与while语句类似，但在循环的___处评估它的表达式。
+4. 你如何使用for语句编写一个无限循环？
+5.  如何使用while语句编写无限循环？
+
 ## 类和对象
+
+利用您现在掌握的Java编程语言基础知识，您可以学习编写自己的类。 在本课中，您将找到有关定义自己的类的信息，包括声明成员变量，方法和构造函数。
+
+您将学习如何使用您的类创建对象，以及如何使用您创建的对象。
+
+本课还介绍其他类中的嵌套类和枚举
+
+### 类
+
+本节将向您展示一个类的解剖结构，以及如何声明字段，方法和构造函数。
+
+在题为“面向对象编程概念”的课程中，面向对象概念的介绍以自行车课为例，以自行车，山地自行车和串联自行车作为子类。 以下是可能实现Bicycle类的示例代码，为您提供类声明的概述。 本课的后续部分将逐步备份并解释类声明。 目前，不要关注细节。
+
+```java
+public class Bicycle {
+        
+    // the Bicycle class has
+    // three fields
+    public int cadence;
+    public int gear;
+    public int speed;
+        
+    // the Bicycle class has
+    // one constructor
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+    }
+        
+    // the Bicycle class has
+    // four methods
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+        
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+        
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+        
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+        
+}
+```
+
+作为Bicycle的子类的MountainBike类的类声明可能如下所示：
+
+```java
+public class MountainBike extends Bicycle {
+        
+    // the MountainBike subclass has
+    // one field
+    public int seatHeight;
+
+    // the MountainBike subclass has
+    // one constructor
+    public MountainBike(int startHeight, int startCadence,
+                        int startSpeed, int startGear) {
+        super(startCadence, startSpeed, startGear);
+        seatHeight = startHeight;
+    }   
+        
+    // the MountainBike subclass has
+    // one method
+    public void setHeight(int newValue) {
+        seatHeight = newValue;
+    }   
+
+}
+```
+
+MountainBike继承了Bicycle的所有领域和方法，并添加了现场座椅高度和设置方法（山地自行车的座椅可根据地形要求上下移动）。
+
+#### 声明类
+
+你已经看到以下列方式定义的类：
+
+```java
+class MyClass {
+    // field, constructor, and 
+    // method declarations
+}
+```
+
+这是一个类声明。 类体（大括号之间的区域）包含所有为从类创建的对象提供生命周期的代码：用于初始化新对象的构造函数，用于提供类及其对象状态的字段的声明以及 方法来实现类和它的对象的行为。
+
+前面的类声明是最小的一个。 它仅包含需要的类声明的组件。 您可以在类声明的开始处提供有关该类的更多信息，例如其超类的名称，是否实现任何接口等等。 例如，
+
+```java
+class MyClass extends MySuperClass implements YourInterface {
+    // field, constructor, and
+    // method declarations
+}
+```
+
+
+
+### 对象
+
+本节介绍创建和使用对象。 您将学习如何实例化对象，并且在实例化后如何使用点运算符来访问对象的实例变量和方法。
+
+### 更多关于类
+
+本节涵盖依赖于使用对象引用的类的更多方面以及您在上一节中学到的点运算符：从方法，this关键字，类与实例成员以及访问控制返回值。
+
+### 嵌套类
+
+包括静态嵌套类，内部类，匿名内部类，本地类和lambda表达式。 还有关于何时使用哪种方法的讨论。
+
+### 枚举类型
+
+本节讨论枚举，这些专用类允许您定义和使用常量集。
 
 ## 注释
 
